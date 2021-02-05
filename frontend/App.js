@@ -68,11 +68,11 @@ export class App extends Component {
       return (
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Landing">
-            <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="Register" component={RegisterScreen} options={{ title: "회원가입", headerStyle: { backgroundColor: '#03D37C', height: 40 }, 
-              headerTintColor: '#FFF'}} />
-            <Stack.Screen name="Login" component={LoginScreen} options={{ title: "로그인", headerStyle: { backgroundColor: '#03D37C', height: 40, },
-              headerTintColor: '#FFF'}} />
+            <Stack.Screen name="Landing" component={LandingScreen} options={{ title: "시작 화면", headerShown: false }} />
+            <Stack.Screen name="Register" component={RegisterScreen} options={{ title: "회원가입", headerStyle: { backgroundColor: '#03D37C', height: 100, 
+              marginTop : StatusBar.currentHeight }, headerTintColor: '#FFF'}} />
+            <Stack.Screen name="Login" component={LoginScreen} options={{ title: "로그인", headerStyle: { backgroundColor: '#03D37C', height: 100, 
+              marginTop : StatusBar.currentHeight}, headerTintColor: '#FFF'}} />
           </Stack.Navigator>
         </NavigationContainer>
       );
@@ -84,11 +84,11 @@ export class App extends Component {
           <Stack.Navigator initialRouteName="Main">
             <Stack.Screen name="Main" component={MainScreen} />
             <Stack.Screen name="Add" component={AddScreen} navigation={this.props.navigation}
-              options={{ title: "사진 업로드", headerStyle: { backgroundColor: '#03D37C', height: 40, }, headerTintColor: '#FFF' }}/>
+              options={{ title: "사진 업로드", headerStyle: { backgroundColor: '#03D37C', height: 40, marginTop : StatusBar.currentHeight}, headerTintColor: '#FFF' }}/>
             <Stack.Screen name="Save" component={SaveScreen} navigation={this.props.navigation} 
-              options={{ title: "저장하기", headerStyle: { backgroundColor: '#03D37C', height: 40, }, headerTintColor: '#FFF' }}/>
+              options={{ title: "저장하기", headerStyle: { backgroundColor: '#03D37C', height: 40, marginTop : StatusBar.currentHeight}, headerTintColor: '#FFF' }}/>
             <Stack.Screen name="Comment" component={CommentScreen} navigation={this.props.navigation} 
-              options={{ title: "댓글", headerStyle: { backgroundColor: '#03D37C', height: 40, }, headerTintColor: '#FFF' }}/>
+              options={{ title: "댓글", headerStyle: { backgroundColor: '#03D37C', height: 40, marginTop : StatusBar.currentHeight}, headerTintColor: '#FFF' }}/>
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

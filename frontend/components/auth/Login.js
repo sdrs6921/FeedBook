@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Button, TextInput, ImageBackground } from 'react-native'
+import { Text, TouchableOpacity ,StyleSheet, View, Button, TextInput, ImageBackground } from 'react-native'
 import background from '../../assets/LoginBackgroud.png'
 import firebase from 'firebase'
 import Landing from './Landing'
@@ -29,7 +29,7 @@ export class Login extends Component {
 
     render() {
         return (
-            <ImageBackground source={background} style={styles.image}>
+            <ImageBackground source={background} style={styles.backgroundContainer}>
                 <View style={styles.container}>
                     <View style={styles.textInputContainer}>
                         <TextInput
@@ -45,11 +45,11 @@ export class Login extends Component {
                             onChangeText={(password) => this.setState({ password })}
                         />
                     </View>
-                    <Button
-                        onPress={() => this.onSignUp()}
-                        color="#03D37C"
-                        title="로그인 "
-                    />
+                    <TouchableOpacity 
+                        style = {styles.button}
+                        onPress={() => this.onSignUp()}>
+                    <Text style = {styles.text}>로그인</Text>
+                </TouchableOpacity>
                 </View>
             </ImageBackground>
         )
@@ -59,27 +59,39 @@ export class Login extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
+        
         justifyContent: 'center',
 
     },
-    image: {
-        flex: 1,
-        resizeMode: "cover",
-        justifyContent: "center"
+    backgroundContainer : {
+        flex : 1,
+        justifyContent : 'flex-end',
+        
     },
     textInput: {
         width: '80%',
-        height: 40,
+        height: 30,
         justifyContent: "center",
+        marginLeft : 20,
+        marginBottom : 30
     },
     button: {
-        width: "80%",
+        alignItems : 'center',
+        justifyContent : 'center',
+        backgroundColor : '#03D37C',
+        height : 50,
+        marginLeft : 20,
+        marginRight : 20,
+        borderRadius : 15
         
     },
     textInputContainer : {
-        width : '80%',
-        marginBottom : 50
+        marginBottom : 70,
+    },
+    text : {
+        color : '#FFFFFF',
+        fontSize : 20,
+        fontWeight : 'bold'
     }
 });
 

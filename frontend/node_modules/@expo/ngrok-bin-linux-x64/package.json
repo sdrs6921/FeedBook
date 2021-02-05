@@ -1,0 +1,12 @@
+{
+  "name": "@expo/ngrok-bin-linux-x64",
+  "description": "ngrok binary for linux-x64",
+  "repository": "expo/ngrok",
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "version": "2.2.8"
+}

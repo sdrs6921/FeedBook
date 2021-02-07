@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, Image, FlatList, Button } from 'react-native'
 import firebase from 'firebase'
 require('firebase/firestore')
 import { connect } from 'react-redux'
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
 function Feed(props) {
     const [posts, setPosts] = useState([]);
@@ -48,27 +49,34 @@ function Feed(props) {
                     data={posts}
                     renderItem={({ item }) => (
                         <View
-                            style={styles.containerImage}>
-                            <Text style={styles.container}>{item.user.name}</Text>
-                            <Text style={styles.container}>{item.title}</Text>
+                            style={styles.container}>
+                            <View style={styles.accountContainer}>
+                                <MaterialIcons name="account-circle" size={40} color="black" />
+                                <Text style={styles.id}>{item.user.name}</Text>
+                            </View>
                             <Image
                                 style={styles.image}
                                 source={{ uri: item.downloadURL }}
                             />
                             { item.currentUserLike ?
                                 (
-                                    <Button
-                                        title="좋아요 취소"
+                                    <AntDesign name="heart" color="black" size={26}
+                                        styles = {{marginLeft : 10}}
                                         onPress={() => onDislikePress(item.user.uid, item.id)} />
                                 )
                                 :
                                 (
-                                    <Button
-                                        title="좋아요"
+                                    <AntDesign name="hearto" color="black" size={26}
+                                        styles = {{marginLeft : 10}}
                                         onPress={() => onLikePress(item.user.uid, item.id)} />
                                 )
                             }
+                            <Text style={styles.title}>{item.title}</Text>
+                            <Text style={styles.author}>{item.author}</Text>
+                            <Text style={styles.theme}>{item.theme}</Text>
+                            <Text style={styles.caption}>{item.caption}</Text>
                             <Text
+                                style={styles.comment}
                                 onPress={() => props.navigation.navigate('Comment', { postId: item.id, uid: item.user.uid })}>
                                 댓글 보기
                                 </Text>
@@ -99,7 +107,39 @@ const styles = StyleSheet.create({
     },
     image: {
         flex: 1,
-        aspectRatio: 1 / 1
+        aspectRatio: 1 / 1,
+    },
+    accountContainer: {
+        flexDirection: 'row',
+    },
+    id: {
+        fontSize: 20,
+        marginTop: 12,
+        marginLeft: 3
+    },
+    title : {
+        fontSize : 25,
+        fontWeight : 'bold',
+        marginLeft : 10
+    },
+    author : {
+        color : '#808080',
+        fontSize : 15,
+        marginLeft : 10
+    },
+    theme : {
+        color : '#03D37C',
+        marginLeft : 10,
+        fontSize : 15,
+        marginBottom : 20,
+    },
+    caption : {
+        marginLeft : 10,
+    },
+    comment : {
+        color : '#808080',
+        marginLeft : 10,
+        marginBottom : 70,
     }
 })
 const mapStateToProps = (store) => ({

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, FlatList, TouchableOpacity } from 'react-native'
-
+import { AntDesign } from '@expo/vector-icons';
 import firebase from 'firebase';
 require('firebase/firestore');
 
@@ -23,10 +23,14 @@ export default function Search(props) {
     }
     return (
         <View>
+            <View style = {{flexDirection : 'row', backgroundColor : '#03D37C'}}>
+            <AntDesign name="search1" size={24} color="white" 
+                style = {{marginLeft : 10, marginRight : 10, marginTop : 7}}/>
             <TextInput
-                placeholder="Type Here..."
+                placeholder="친구 검색"
+                style = {{color : 'white', height : 40}}
                 onChangeText={(search) => fetchUsers(search)} />
-
+            </View>
             <FlatList
                 numColumns={1}
                 horizontal={false}
@@ -34,7 +38,12 @@ export default function Search(props) {
                 renderItem={({ item }) => (
                     <TouchableOpacity
                         onPress={() => props.navigation.navigate("Profile", {uid: item.id})}>
-                        <Text>{item.name}</Text>
+                        <Text
+                            style = {{
+                                fontSize : 20,
+                                marginLeft : 15,
+                                marginBottom : 5,
+                            }}>{item.name}</Text>
                     </TouchableOpacity>
 
                 )}

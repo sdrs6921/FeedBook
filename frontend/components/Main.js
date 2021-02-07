@@ -25,7 +25,11 @@ export class Main extends Component {
     }
     render() {
         return (
-            <Tab.Navigator initialRouteName="Feed" labeled={false}>
+            <Tab.Navigator
+                initialRouteName="Feed" labeled={false}
+                barStyle = {
+                    {backgroundColor : '#F4F4F4'}
+                }>
                 <Tab.Screen name="AddContainer" component={EmptyScreen}
                     listeners={({ navigation }) => ({
                         tabPress: event => {
@@ -50,12 +54,13 @@ export class Main extends Component {
                             <MaterialCommunityIcons name="home" color={color} size={26} />
                         ),
                     }} />
-                <Tab.Screen name="Profile" component={ProfileScreen} 
-                listeners={({ navigation }) => ({
-                    tabPress: event => {
-                        event.preventDefault();
-                        navigation.navigate("Profile", {uid: firebase.auth().currentUser.uid})
-                    }})}
+                <Tab.Screen name="Profile" component={ProfileScreen}
+                    listeners={({ navigation }) => ({
+                        tabPress: event => {
+                            event.preventDefault();
+                            navigation.navigate("Profile", { uid: firebase.auth().currentUser.uid })
+                        }
+                    })}
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="account-circle" color={color} size={26} />

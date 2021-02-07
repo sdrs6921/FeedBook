@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, TextInput, Image, Button } from 'react-native'
+import { Text, View, TextInput, Image, StyleSheet, TouchableOpacity } from 'react-native'
 
 import firebase from 'firebase'
 import { NavigationContainer } from '@react-navigation/native'
@@ -10,6 +10,8 @@ require("firebase/firebase-storage")
 export default function Save(props) {
     const [caption, setCaption] = useState("")
     const [title, setTitle] = useState("")
+    const [author, setAuthor] = useState("")
+    const [theme, setTheme] = useState("")
 
     const uploadImage = async () => {
         const uri = props.route.params.image;
@@ -54,23 +56,86 @@ export default function Save(props) {
                 caption,
                 likesCount: 0,
                 creation: firebase.firestore.FieldValue.serverTimestamp(),
-                title
+                title,
+                author,
+                theme
             }).then((function () {
                 props.navigation.popToTop()
             }))
     }
     return (
-        <View style={{ flex: 1 }}>
+        <View style={styles.container}>
+            <View style = {styles.imageContainer}>
+            <Image source={{ uri: props.route.params.image }} style = {styles.image} />
+            </View>
+            <View style = {styles.textInputContainer}>
             <TextInput
+                style = {styles.textInput}
                 placeholder="제목"
                 onChangeText={(title) => setTitle(title)}/>
-            <Image source={{ uri: props.route.params.image }} />
+            
             <TextInput
+                style = {styles.textInput}
+                placeholder="지은이"
+                onChangeText={(author) => setAuthor(author)}
+            />
+            <TextInput
+                style = {styles.textInput}
+                placeholder="장르"
+                onChangeText={(theme) => setTheme(theme)}
+            />
+            <TextInput
+                style = {styles.textInput}
                 placeholder="책의 느낌을 말해주세요.."
                 onChangeText={(caption) => setCaption(caption)}
             />
-
-            <Button title="저장하기" onPress={() => uploadImage()} />
+            </View>
+            <TouchableOpacity
+                style = {styles.button} onPress={() => uploadImage()}>
+                <Text
+                    style = {styles.text}>사진 올리기</Text>
+            </TouchableOpacity>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container : {
+        flex : 1,
+        alignContent : 'center',
+        
+        
+    },
+    image : {
+        width : 300,
+        height : 300,
+    },
+    textInputContainer : {
+        marginBottom : 20,
+        marginLeft : 20
+    },
+    textInput : {
+        height : 40,
+        fontSize : 20,
+        marginBottom : 10
+    },
+    imageContainer : {
+        marginTop : 20,
+        alignItems : 'center',
+        marginBottom : 10
+    },
+    button : {
+        height : 50,
+        backgroundColor : '#03D37C',
+        alignItems : 'center',
+        justifyContent : 'center',
+        marginLeft : 20,
+        marginRight : 20,
+        borderRadius : 15
+    },
+    text : {
+        color : '#FFFFFF',
+        fontSize : 20,
+        fontWeight : 'bold'
+    }
+})

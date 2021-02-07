@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, FlatList, Button, TextInput } from 'react-native'
+import { View, Text, FlatList, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 
 import firebase from 'firebase'
 require('firebase/firestore')
@@ -75,9 +75,15 @@ function Comment(props) {
                 horizontal={false}
                 data={comments}
                 renderItem={({ item }) => (
-                    <View>
+                    <View style={styles.commentContainer}>
                         {item.user !== undefined ?
-                            <Text>
+                            <Text
+                                style = {{
+                                    fontWeight : 'bold',
+                                    marginLeft : 10,
+                                    marginBottom : 5,
+                                    marginRight : 10
+                                }}>
                                 {item.user.name}
                             </Text>
                             : null}
@@ -89,17 +95,44 @@ function Comment(props) {
             <View>
                 <TextInput
                     placeholder='댓글'
-                    onChangeText={(text) => setText(text)} />
-                <Button
+                    onChangeText={(text) => setText(text)} 
+                    style = {{
+                        marginTop : 20,
+                        height : 20,
+                        fontSize : 20,
+                        marginLeft : 10
+                    }}/>
+                <TouchableOpacity
+                    style = {styles.button}
                     onPress={() => onCommentSend()}
-                    title="댓글 달기"
-                />
+                >
+                    <Text style = {styles.text}>댓글 달기</Text>
+                </TouchableOpacity>
             </View>
 
         </View>
     )
 }
 
+const styles = StyleSheet.create({
+    commentContainer: {
+        flexDirection: 'row'
+    },
+    button : {
+        height : 30,
+        backgroundColor : '#03D37C',
+        alignItems : 'center',
+        justifyContent : 'center',
+        marginLeft : 140,
+        marginRight : 140,
+        borderRadius : 15
+    },
+    text : {
+        color : '#FFFFFF',
+        fontSize : 15,
+        fontWeight : 'bold'
+    }
+})
 
 const mapStateToProps = (store) => ({
     users: store.usersState.users

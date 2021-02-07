@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, Text, Image, FlatList, Button } from 'react-native'
+import { StyleSheet, View, Text, Image, FlatList, Button, TouchableOpacity } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons';
 
 import firebase from 'firebase'
 require('firebase/firestore')
@@ -81,29 +82,125 @@ function Profile(props) {
     return (
         <View style={styles.container}>
             <View style={styles.containerInfo}>
-                <Text>{user.name}</Text>
-                <Text>{user.email}</Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <MaterialIcons name="account-circle" size={100} color="black" />
+                    <View style={{
+                        marginLeft: 10,
+                        marginTop: 20
+                    }}>
+                        <Text style={{
+                            fontSize: 25,
+                            marginBottom: 15
+                        }}>{user.name}</Text>
+                        <Text style={{
+                            fontSize: 15
+                        }}>{user.email}</Text>
+                        <View style={{
+                            flexDirection: 'row',
+                            marginTop: 15,
+                        }}>
+                            <View style={{
+                                marginRight: 40,
+                                alignItems: 'center',
+                                justifyContent: 'center'
+
+                            }}>
+                                <Text style={{
+                                    color: '#BBBBBB',
+                                    fontSize: 17
+                                }}>읽은 책</Text>
+                                <Text style={{
+                                    fontSize: 17
+                                }}>0</Text>
+                            </View>
+                            <View style={{
+                                marginRight: 40,
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}>
+                                <Text style={{
+                                    color: '#BBBBBB',
+                                    fontSize: 17
+                                }}>좋아요</Text>
+                                <Text style={{
+                                    fontSize: 17
+                                }}>0</Text>
+                            </View>
+                            <View style={{
+
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}>
+                                <Text style={{
+                                    color: '#BBBBBB',
+                                    fontSize: 17
+                                }}>저장</Text>
+                                <Text style={{
+                                    fontSize: 17
+                                }}>0</Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
 
                 {props.route.params.uid !== firebase.auth().currentUser.uid ? (
                     <View>
                         {following ? (
-                            <Button
-                                title="Following"
+                            <TouchableOpacity
                                 onPress={() => onUnfollow()}
-                            />
+                                style={{
+                                    height: 50,
+                                    backgroundColor: '#03D37C',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    marginLeft: 10,
+                                    marginRight: 10,
+                                    borderRadius: 15
+                                }}
+                            ><Text style = {{
+                                color : 'white',
+                                fontWeight : 'bold',
+                                fontSize : 20
+                            }}>팔로윙</Text></TouchableOpacity>
                         ) :
                             (
-                                <Button
-                                    title="Follow"
-                                    onPress={() => onFollow()}
-                                />
+                                <TouchableOpacity
+                                    onPress={() => onUnfollow()}
+                                    style={{
+                                        height: 50,
+                                        backgroundColor: '#03D37C',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        marginLeft: 10,
+                                        marginRight: 10,
+                                        borderRadius: 15
+                                    }}
+                                ><Text style = {{
+                                    color : 'white',
+                                    fontWeight : 'bold',
+                                    fontSize : 20
+                                }}>팔로우</Text></TouchableOpacity>
                             )}
                     </View>
                 ) :
-                    <Button
-                        title="로그 아웃"
-                        onPress={() => onLogout()}
-                    />}
+                    <TouchableOpacity
+                        onPress={() => onUnfollow()}
+                        style={{
+                            height: 40,
+                            backgroundColor: '#03D37C',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginLeft: 10,
+                            marginRight: 10,
+                            borderRadius: 15,
+                            marginTop : 10
+                        }}
+                    ><Text style = {{
+                        color : 'white',
+                        fontWeight : 'bold',
+                        fontSize : 20
+                    }}>로그 아웃</Text></TouchableOpacity>
+                }
             </View>
 
             <View style={styles.containerGallery}>
